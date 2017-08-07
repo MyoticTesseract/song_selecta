@@ -18,7 +18,7 @@ A Twitter bot that brings you a new song daily and follows a monthly theme.
 
 #### 3- API Credentials
 
-- We are using [dotenv]() to hide our environments variables so before you start the application, get your credentials:
+- We are using [dotenv](https://github.com/motdotla/dotenv) to hide our environments variables so before you start the application, get your credentials:
     - On [Twitter](https://apps.twitter.com) _Register your app with your bots' account, not yours. Unless you wish to post songs from your account._
 
     - On [Spotify](https://developer.spotify.com/my-applications/#!/applications)
