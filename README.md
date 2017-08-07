@@ -1,7 +1,9 @@
 # A SONG A DAY KEEPS THE BLUES AWAY
 
+![giphy-downsized 4](https://user-images.githubusercontent.com/6969180/29043939-2719bb50-7b8b-11e7-9986-91ae8f440ca6.gif)
+
 ## WHAT IS THIS?
-A Twitter bot that brings you a new song daily and follows a monthly theme.
+A Twitter bot that brings you a fresh song daily based on a monthly theme.
 
 ## SETUP
 
