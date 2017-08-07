@@ -1,0 +1,30 @@
+{
+  "name": "song_selecta",
+  "version": "1.0.0",
+  "description": "a random song selector that uses the spotify API",
+  "main": "server.js",
+  "scripts": {
+    "test": "test",
+    "start": "node app.js",
+    "postinstall": "npm rebuild node-sass"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/pam-/song_selecta.git"
+  },
+  "keywords": [
+    "do",
+    "it"
+  ],
+  "author": "pam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pam-/song_selecta/issues"
+  },
+  "homepage": "https://github.com/pam-/song_selecta#readme",
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "dotenv": "^4.0.0",
+    "node-sass-middleware": "^0.11.0"
+  }
+}
