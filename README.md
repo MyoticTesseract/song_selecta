@@ -7,9 +7,9 @@ A Twitter bot that brings you a new song daily and follows a monthly theme.
 
 #### 1- Clone the repo
 
-- From the command line (aka the [terminal](https://medium.com/wearecolorcoded/these-are-a-few-of-my-favorite-terminal-shortcuts-8da1eaf12612)) enter `git@github.com:wearecolorcoded/asongaday.git` _or_ fork it into your account with the button on the top right of the screen
+- From the command line (aka the [terminal](https://medium.com/wearecolorcoded/these-are-a-few-of-my-favorite-terminal-shortcuts-8da1eaf12612)) enter `git@github.com:wearecolorcoded/song_selecta.git` _or_ fork it into your account with the button on the top right of the screen
 
-- Cd into the directory `cd asongaday`
+- Cd into the directory `cd song_selecta`
 
 #### 2- Node and packages
 
