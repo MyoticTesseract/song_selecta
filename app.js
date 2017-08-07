@@ -9,17 +9,24 @@ var fs = require('fs'),
     chalk = require('chalk'),
     sass = require('node-sass-middleware'),
     app = express(),
+    /* how we will talk to the twitter api */
     Twit = require('twit'),
+    /* Be sure to update the .env file with your API keys.
+      From Twitter: https://apps.twitter.com/app/new
+      From Spotify: https://developer.spotify.com/my-applications/#!/applications/create
+    */
     config = {
-    /* Be sure to update the .env file with your API keys. See how to get them: https://botwiki.org/tutorials/make-an-image-posting-twitter-bot/#creating-a-twitter-app*/
       twitter: {
         consumer_key: process.env.CONSUMER_KEY,
         consumer_secret: process.env.CONSUMER_SECRET,
         access_token: process.env.ACCESS_TOKEN,
         access_token_secret: process.env.ACCESS_TOKEN_SECRET
+      },
+      spotify: {
+        clientId : process.env.clientId,
+        clientSecret : process.env.clientSecret
       }
-    },
-    T = new Twit(config.twitter);
+    };
 
 app.set('port', process.env.PORT || 3000);
 app.use(express.static('public'));
@@ -30,34 +37,35 @@ app.use(sass({
 
 var Spotify = Spotify || {
 
-  spotifyApi: {},
+  api: {},
 
   init: () => {
-    spotifyApi = new SpotifyWebApi({
-      clientId : process.env.clientId,
-      clientSecret : process.env.clientSecret,
-    });
+    Spotify.api = new SpotifyWebApi(config.spotify);
 
     return Spotify.getSong();
   },
 
   getSong: () => {
-    spotifyApi.clientCredentialsGrant()
+    /* let's get the credentials to get access to the Spotify API */
+    Spotify.api.clientCredentialsGrant()
+    /* the credentials are returned and _then_ we move on to the next steps */
     .then((data) => {
-      // Set the access token on the API object so that it's used in all future requests
-      spotifyApi.setAccessToken(data.body['access_token']);
+      /* Set the access token on the API object so that it's used in all future requests */
+      Spotify.api.setAccessToken(data.body['access_token']);
 
-      // Get the most popular tracks by David Bowie in Great Britain
-      return spotifyApi.searchTracks('Sunshine');
+      /* Search tracks by theme and return them */
+      return Spotify.api.searchTracks('Sun');
     }).then((data) => {
       var songs = data.body.tracks.items,
           song = songs[Math.floor(Math.random()*songs.length)];
+          /* let's store the song data into an object: {} so it's easier to decipher later */
           songPick = {
             name: song.name,
             uri: `https://open.spotify.com/track/${song.id}`,
             artists: song.artists.map((artists) => {return artists['name']})
           };
 
+      /* let's return our fresh songPick */
       return songPick;
     }).then((data) => {
       TwitBot.tweet(data)
@@ -68,7 +76,11 @@ var Spotify = Spotify || {
 };
 
 var TwitBot = TwitBot || {
+
+  api: {},
+
   init: () => {
+    TwitBot.api = new Twit(config.twitter);
     Spotify.init();
   },
 
@@ -80,11 +92,11 @@ var TwitBot = TwitBot || {
     }
   */
   tweet: (songPick) => {
-    // format the artists into a string like so: "artist1 and artist2"
+    /* format the artists into a string like so: "artist1 and artist2" */
     var artists = songPick.artists.join(' and ');
 
-    // post the tweet!
-    T.post('statuses/update', {
+    /* post the tweet! */
+    TwitBot.api.post('statuses/update', {
       status: `${songPick.name} BY ${artists} ${songPick.uri}>`
     }, (err, data, response) => {
       if (err){
