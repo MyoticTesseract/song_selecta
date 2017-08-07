@@ -26,10 +26,6 @@ A Twitter bot that brings you a new song daily and follows a monthly theme.
 - Create a `.env` file, and add your credentials like so
 
 ```
-# Check out botwiki.org/tutorials/how-to-create-a-twitter-app to see how to obtain the keys/secrets below.
-# TWITTER_HANDLE should be your Twitter bot's username, for example 'iamawakebot'
-
-
 clientId='SPOTIFY CLIENT ID GOES HERE'
 clientSecret='SPOTIFY CLIENT SECRET GOES HERE'
 
